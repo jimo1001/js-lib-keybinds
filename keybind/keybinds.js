@@ -81,8 +81,10 @@ var keybindFactory = {
     },
 
     init: function() {
-        if (this._event_binding_elements && (this._event_binding_elements.length > 0))
+        var ebe = this._event_binding_elements;
+        if (ebe && (ebe.length > 0)) {
             this.unbind();
+        }
         this.bind();
     },
 
@@ -177,12 +179,13 @@ var keybindFactory = {
         for (var mk in mkeys) {
             if (evt[mk] && mkeys.hasOwnProperty(mk)) {
                 if (isModifierKey) return mk;
-                if ((mk == "metaKey") && (evt["ctrlKey"] === true))
+                if ((mk === "metaKey") && (evt["ctrlKey"] === true)) {
                     continue;
+                }
                 key.push(this._mkeys[mk]);
             }
         }
-        if (isModifierKey) return "";
+        if (isModifierKey) return undefined;
         if (evt.which) {
             k = this._skeys[evt.which] || this._keys[evt.which] || String.fromCharCode(evt.which).toLowerCase();
         } else if (evt.keyCode) {
@@ -193,7 +196,7 @@ var keybindFactory = {
             key.push(key.length ? '-'+k : k);
             return key.join('');
         } else {
-            return "";
+            return undefined;
         }
     },
 
@@ -201,16 +204,20 @@ var keybindFactory = {
      *
      * @param element (optional, default:window)
      * @param func (required)
+     * @param isModifierKey if a getting key is a modifier key only, the attribute is ture.
      */
-    getKey: function(element, func) {
+    getKey: function(element, func, isModifierKey) {
         var self = this;
-        if (!element && !func) { return; }
-        if (!func) {
+        if (typeof element === "function") {
+            if (func !== undefined) {
+                isModifierKey = func;
+            }
             func = element;
             element = window;
         }
+        if (typeof func !== "function") { return undefined; }
         element.addEventListener('keydown', function(evt) {
-            var key = self.getKeyFromEvent(evt);
+            var key = self.getKeyFromEvent(evt, !!isModifierKey);
             func.call(element, key, evt);
         }, false);
 
@@ -235,7 +242,7 @@ var keybindFactory = {
      */
     removeByKey: function(element, key) {
         this._keybinds = this._keybinds.filter(function(keybind) {
-            return (!(keybind.element == element && keybind.key == key));
+            return (!(keybind.element === element && keybind.key === key));
         });
     },
 
