@@ -203,22 +203,22 @@ var keybindFactory = {
     /**
      *
      * @param element (optional, default:window)
-     * @param func (required)
+     * @param callback (required)
      * @param isModifierKey if a getting key is a modifier key only, the attribute is ture.
      */
-    getKey: function(element, func, isModifierKey) {
+    getKey: function(element, callback, isModifierKey) {
         var self = this;
         if (typeof element === "function") {
-            if (func !== undefined) {
-                isModifierKey = func;
+            if (callback !== undefined) {
+                isModifierKey = callback;
             }
-            func = element;
+            callback = element;
             element = window;
         }
-        if (typeof func !== "function") { return undefined; }
+        if (typeof callback !== "function") { return undefined; }
         element.addEventListener('keydown', function(evt) {
             var key = self.getKeyFromEvent(evt, !!isModifierKey);
-            func.call(element, key, evt);
+            callback.call(element, key, evt);
         }, false);
 
     },
