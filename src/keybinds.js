@@ -116,7 +116,7 @@ var keybindFactory = {
     },
 
     /**
-     * @param {element} elem add event the DOM Element (default: window)
+     * @param {Element} elem add event the DOM Element (default: window)
      */
     bind: function(elem) {
         if (!elem) elem = window;
@@ -128,7 +128,7 @@ var keybindFactory = {
     },
 
     /**
-     * @param {element} elem remove event the DOM Element(HTMLELement/HTMLDocument/DOMWindow)
+     * @param {Element} elem remove event the DOM Element(HTMLELement/HTMLDocument/DOMWindow)
      */
     unbind: function(elem) {
         var ebe = this._event_binding_elements;
@@ -163,8 +163,8 @@ var keybindFactory = {
 
     /**
      * return Keybind objects.
-     * @return {array} the list of Keybind objects.
-     * @param {element} element a DOM Element(HTMLElement/HTMLDocument/DOMWindow)
+     * @return {Array} the list of Keybind objects.
+     * @param {Element} element a DOM Element(HTMLElement/HTMLDocument/DOMWindow)
      * @param {string} key the key string (e.x. Control + y -> C-y)
      */
     getKeybinds: function(element, key) {
@@ -220,7 +220,7 @@ var keybindFactory = {
     /**
      * get a key string.
      * @return {string} the key string (Control + y -> 'C-y')
-     * @param {element} element a DOM Element(optional, default:window)
+     * @param {Element} element a DOM Element(optional, default:window)
      * @param {function} callback (required)
      * @param {boolean} isModifierKey if a getting key is a modifier key only, the attribute is ture.
      */
@@ -243,7 +243,7 @@ var keybindFactory = {
 
     /**
      * remove a Keybind from Keybind object.
-     * @param {Keybind} keybind a keybind object
+     * @param {Keybind} keybind a Keybind object
      */
     remove: function(keybind) {
         if (keybind) {
@@ -255,7 +255,7 @@ var keybindFactory = {
 
     /**
      * remove a Keybind from a Element and a key
-     * @param {element} element a DOM Element
+     * @param {Element} element a DOM Element
      * @param {string} key the key string (e.x. Control + y -> C-y)
      */
     removeByKey: function(element, key) {
@@ -280,7 +280,7 @@ var keybindFactory = {
     /**
      * the method checks whether a input field or a textarea.
      * @return {boolean} if the node is input or textarea, return true.
-     * @param {element} node a DOM Element(HTMLElement/HTMLDocument/DOMWindow)
+     * @param {Element} node a DOM Element(HTMLElement/HTMLDocument/DOMWindow)
      */
     isInputable: function(node) {
         return /^(?:input|textarea)$/.test(node.nodeName.toLowerCase());
