@@ -1,30 +1,30 @@
 
 /**
  * the script is a simple JavaScript library for keyboard shortcut.
- * the keybindFactory is a factory class of Keybind[s](shortcutkey[s])
+ * the keybinds is a factory class of Keybind[s](shortcutkey[s])
  *
  * Usage:
  * - add Keybind(Control+y)
- *   keybindFactory.add(element, 'C-y', function(event, [object Keybind]) { ... }, false)
+ *   keybinds.add(element, 'C-y', function(event, [object Keybind]) { ... }, false)
  *                 .add(element, 'C-x', function(event, [object Keybind]) { ... }, false);
  * - remove Keybind
- *   keybindFactory.remove([object Keybind]);
+ *   keybinds.remove([object Keybind]);
  *   or
- *   keybindFactory.removeByKey(element, 'C-y');
+ *   keybinds.removeByKey(element, 'C-y');
  * - get key
  *   var textform = document.getElementById('text-form');
- *   keybindFactory.getKey(textform, function(key, event) { ... });
+ *   keybinds.getKey(textform, function(key, event) { ... });
  * - get Keybinds
  *   - all keybinds
- *     var keybinds = keybindFactory.getKeybinds();
+ *     var keybinds = keybinds.getKeybinds();
  *   - by key
- *     var keybinds = keybindFactory.getKeybinds("C-y");
+ *     var keybinds = keybinds.getKeybinds("C-y");
  *   - by element
- *     var keybinds = keybindFactory.getKeybinds(window);
+ *     var keybinds = keybinds.getKeybinds(window);
  *   - by key and element
- *     var keybinds = keybindsFactory.getKeybinds("C-y", window);
+ *     var keybinds = keybinds.getKeybinds("C-y", window);
  */
-var keybindFactory = {
+var keybinds = {
     _event_binding_elements: null,
     _event_type: 'keydown',
     _keybinds: [],
@@ -83,7 +83,7 @@ var keybindFactory = {
 
         this.execute = function(evt) {
             if (!this.force)
-                if (keybindFactory.isInputable(evt.target)) return;
+                if (keybinds.isInputable(evt.target)) return;
             this.callback.call(this.element, evt, this);
         }
         this.toString = function() {
@@ -92,7 +92,7 @@ var keybindFactory = {
     },
 
     _listener: function(evt) {
-        var self = keybindFactory;
+        var self = keybinds;
         var key = self.getKeyFromEvent(evt);
         if (key === "") return;
         var kbs = self._keybinds, i = 0;
@@ -144,7 +144,7 @@ var keybindFactory = {
 
     /**
      * create Keybind object.
-     * @return {object} the own object(keybindFactory)
+     * @return {object} the own object(keybinds)
      * @param {object} element a DOM Element (HTMLElement/HTMLDocument/DOMWindow)
      * @param {string} key the key string (e.x. Control + y -> C-y)
      * @param {function} callback a callback function
