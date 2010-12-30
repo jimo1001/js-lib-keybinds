@@ -82,8 +82,9 @@ var keybinds = {
         this.force = (force === undefined) ? false : force;
 
         this.execute = function(evt) {
-            if (!this.force)
-                if (keybinds.isInputable(evt.target)) return;
+            if (!this.force) {
+                if (keybinds.isInputable(evt.target)) { return; }
+            }
             this.callback.call(this.element, evt, this);
         }
         this.toString = function() {
@@ -113,6 +114,7 @@ var keybinds = {
             this.unbind();
         }
         this.bind();
+        return this;
     },
 
     /**
@@ -125,6 +127,7 @@ var keybinds = {
         if (elem in ebe) return;
         elem.addEventListener(this._event_type, this._listener, false);
         ebe.push(elem);
+        return this;
     },
 
     /**
@@ -140,6 +143,7 @@ var keybinds = {
                 delete ebe[i];
             }
         }
+        return this;
     },
 
     /**
