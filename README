@@ -1,0 +1,23 @@
+the script is a simple JavaScript library for keyboard shortcut.
+the keybinds is a factory class of Keybind[s](shortcutkey[s])
+
+Usage:
+- add Keybind(Control+y)
+  keybinds.add(element, 'C-y', function(event, [object Keybind]) { ... }, false)
+                .add(element, 'C-x', function(event, [object Keybind]) { ... }, false);
+- remove Keybind
+  keybinds.remove([object Keybind]);
+  or
+  keybinds.removeByKey(element, 'C-y');
+- get key
+  var textform = document.getElementById('text-form');
+  keybinds.getKey(textform, function(key, event) { ... });
+- get Keybinds
+  - all keybinds
+    var keybinds = keybinds.getKeybinds();
+  - by key
+    var keybinds = keybinds.getKeybinds("C-y");
+  - by element
+    var keybinds = keybinds.getKeybinds(window);
+  - by key and element
+    var keybinds = keybinds.getKeybinds("C-y", window);
