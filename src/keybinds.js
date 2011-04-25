@@ -24,7 +24,7 @@
  *   - by key and element
  *     var keybinds = keybinds.getKeybinds("C-y", window);
  */
-keybinds = {
+var keybinds = {
     _event_binding_elements: null,
     _event_type: 'keydown',
     _keybinds: [],
@@ -99,7 +99,7 @@ keybinds = {
         var kbs = self._keybinds, i = 0;
         for (i=0; i<kbs.length; i++) {
             if ((kbs[i].key === key) && ((kbs[i].element === evt.target) ||
-                    (/^(?:\[object DOMWindow\]|\[object HTMLDocument\])$/.test(kbs[i].element.toString())))) {
+                    (/^(?:\[object (DOM)?Window\]|\[object (HTML)?Document\])$/.test(kbs[i].element.toString())))) {
                 kbs[i].execute(evt);
             }
         }
