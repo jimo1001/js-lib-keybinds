@@ -10,7 +10,9 @@
  * - remove Keybind
  *   keybinds.remove([object Keybind]);
  *   or
- *   keybinds.removeByKey(element, 'C-y');
+ *   keybinds.removeByKey('C-y');
+ *   or
+ *   keybinds.removeByKey('C-y', element);
  * - get key
  *   var textform = document.getElementById('text-form');
  *   keybinds.getKey(textform, function(key, event) { ... });
@@ -222,8 +224,8 @@
    */
   function remove(keybind) {
     if (keybind) {
-      pool = pool.filter(function(bind) {
-        return (keybind !== bind);
+      pool = pool.filter(function(kb) {
+        return (keybind !== kb);
       });
     }
   }
@@ -234,9 +236,9 @@
    * @param {Element} element a DOM Element
    * @param {string} key the key string (e.x. Control + y -> C-y)
    */
-  function removeByKey(element, key) {
-    pool = pool.filter(function (keybind) {
-      return (!(keybind.element === element && keybind.key === key));
+  function removeByKey(key, element) {
+    pool = pool.filter(function (kb) {
+      return (!((!element || kb.element === element) && kb.key === key));
     });
   }
   keybinds.removeByKey = removeByKey;

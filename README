@@ -8,7 +8,9 @@ Usage:
 - remove Keybind
   keybinds.remove([object Keybind]);
   or
-  keybinds.removeByKey(element, 'C-y');
+  keybinds.removeByKey('C-y');
+  or
+  keybinds.removeByKey('C-y', element);
 - get key
   var textform = document.getElementById('text-form');
   keybinds.getKey(textform, function(key, event) { ... });
@@ -16,8 +18,8 @@ Usage:
   - all keybinds
     var keybinds = keybinds.getKeybinds();
   - by key
-    var keybinds = keybinds.getKeybinds("C-y");
+    var keybinds = keybinds.getKeybinds('C-y');
   - by element
     var keybinds = keybinds.getKeybinds(window);
   - by key and element
-    var keybinds = keybinds.getKeybinds("C-y", window);
+    var keybinds = keybinds.getKeybinds('C-y', window);
