@@ -3,8 +3,8 @@ the keybinds is a factory class of Keybind[s](shortcutkey[s])
 
 Usage:
 - add Keybind(Control+y)
-  keybinds.add(element, 'C-y', function(event, [object Keybind]) { ... }, false)
-                .add(element, 'C-x', function(event, [object Keybind]) { ... }, false);
+  keybinds.add(element, 'C-y', function (event, [object Keybind]) { ... }, false)
+                .add(element, 'C-x', function (event, [object Keybind]) { ... }, false);
 - remove Keybind
   keybinds.remove([object Keybind]);
   or

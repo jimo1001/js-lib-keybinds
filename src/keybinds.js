@@ -75,7 +75,7 @@
       'metaKey' : 'M',
       'shiftKey' : 'S'
     };
-  if (!root && typeof window) {
+  if (!root && (typeof window !== 'undefined')) {
     root = window;
   }
   previous_keybinds = (root && root.keybinds) || {};
