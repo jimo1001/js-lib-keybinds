@@ -5,8 +5,8 @@
  *
  * Usage:
  * - add Keybind(Control+y)
- *   keybinds.add(element, 'C-y', function(event, [object Keybind]) { ... }, false)
- *                 .add(element, 'C-x', function(event, [object Keybind]) { ... }, false);
+ *   keybinds.add(element, 'C-y', function (event, [object Keybind]) { ... }, false)
+ *                 .add(element, 'C-x', function (event, [object Keybind]) { ... }, false);
  * - remove Keybind
  *   keybinds.remove([object Keybind]);
  *   or
@@ -15,7 +15,7 @@
  *   keybinds.removeByKey('C-y', element);
  * - get key
  *   var textform = document.getElementById('text-form');
- *   keybinds.getKey(textform, function(key, event) { ... });
+ *   keybinds.getKey(textform, function (key, event) { ... });
  * - get Keybinds
  *   - all keybinds
  *     var keybinds = keybinds.getKeybinds();
@@ -30,46 +30,52 @@
 (function () {
 
   var keybinds = {},
-      // object DOMWindow
-      root = this,
-      previous_keybinds = null,
-      // keybinds variables
-      binding_elements = null,
-      pool = [],
-      key_event = 'keydown',
-      key_codes = { 9 : 'TAB',
-                    27 : 'ESC',
-                    33 : 'PageUp',
-                    34 : 'PageDown',
-                    35 : 'End',
-                    36 : 'Home',
-                    37 : 'Left',
-                    38 : 'Up',
-                    39 : 'Right',
-                    40 : 'Down',
-                    45 : 'Insert',
-                    46 : 'Delete',
-                    112 : 'F1',
-                    113 : 'F2',
-                    114 : 'F3',
-                    115 : 'F4',
-                    116 : 'F5',
-                    117 : 'F6',
-                    118 : 'F7',
-                    119 : 'F8',
-                    120 : 'F9',
-                    121 : 'F10',
-                    122 : 'F11',
-                    123 : 'F12' },
-      skey_codes = { 8 : 'BS',
-                     10 : 'RET',
-                     13 : 'RET',
-                     32 : 'SPC' },
-      modifier_keys = { 'altKey' : 'A',
-                        'ctrlKey' : 'C',
-                        'metaKey' : 'M',
-                        'shiftKey' : 'S' };
-  if (!root && typeof(window)) {
+    // object DOMWindow
+    root = this,
+    previous_keybinds = null,
+    // keybinds variables
+    binding_elements = null,
+    pool = [],
+    key_event = 'keydown',
+    key_codes = {
+      9 : 'TAB',
+      27 : 'ESC',
+      33 : 'PageUp',
+      34 : 'PageDown',
+      35 : 'End',
+      36 : 'Home',
+      37 : 'Left',
+      38 : 'Up',
+      39 : 'Right',
+      40 : 'Down',
+      45 : 'Insert',
+      46 : 'Delete',
+      112 : 'F1',
+      113 : 'F2',
+      114 : 'F3',
+      115 : 'F4',
+      116 : 'F5',
+      117 : 'F6',
+      118 : 'F7',
+      119 : 'F8',
+      120 : 'F9',
+      121 : 'F10',
+      122 : 'F11',
+      123 : 'F12'
+    },
+    skey_codes = {
+      8 : 'BS',
+      10 : 'RET',
+      13 : 'RET',
+      32 : 'SPC'
+    },
+    modifier_keys = {
+      'altKey' : 'A',
+      'ctrlKey' : 'C',
+      'metaKey' : 'M',
+      'shiftKey' : 'S'
+    };
+  if (!root && typeof window) {
     root = window;
   }
   previous_keybinds = (root && root.keybinds) || {};
@@ -185,7 +191,7 @@
     }
 
     if (k.match(/^(?:[a-zA-Z0-9]+)$/)) {
-      key.push(key.length ? '-'+k : k);
+      key.push(key.length ? '-' + k : k);
       return key.join('');
     } else {
       return undefined;
@@ -211,7 +217,7 @@
     if (!element || (typeof callback !== 'function')) {
       return undefined;
     }
-    element.addEventListener('keydown', function(evt) {
+    element.addEventListener('keydown', function (evt) {
       var key = getKeyFromEvent(evt, !!isModifierKey);
       callback.call(element, key, evt);
     }, false);
@@ -224,7 +230,7 @@
    */
   function remove(keybind) {
     if (keybind) {
-      pool = pool.filter(function(kb) {
+      pool = pool.filter(function (kb) {
         return (keybind !== kb);
       });
     }
@@ -260,7 +266,7 @@
   function listener(evt) {
     var key = getKeyFromEvent(evt), i = 0;
     if (!key) {
-      return ;
+      return;
     }
     for (i = 0; i < pool.length; i += 1) {
       if ((pool[i].key === key) &&
@@ -281,11 +287,11 @@
       binding_elements = [];
     }
     if (!element) {
-      return ;
+      return;
     }
     for (i = 0; i < binding_elements.length; i += 1) {
       if (element === binding_elements[i]) {
-        return ;
+        return;
       }
     }
     element.addEventListener(key_event, listener, false);
@@ -300,7 +306,7 @@
   function unbind(element) {
     var i = 0;
     if (!binding_elements || (binding_elements.length === 0)) {
-      return ;
+      return;
     }
     for (i = 0; i < binding_elements.length; i += 1) {
       if ((element === binding_elements[i]) || !element) {
